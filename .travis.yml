@@ -1,0 +1,12 @@
+# Virtual Machine Configuration
+os: linux
+dist: xenial
+
+# Project JDK
+language: java
+jdk:
+  - openjdk11
+
+script:
+  
+  - mvn clean install verify
