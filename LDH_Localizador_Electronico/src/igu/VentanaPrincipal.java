@@ -21,6 +21,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/*! Clase de la ventana principal de la aplicación */
 public class VentanaPrincipal extends JFrame {
 
     /**
@@ -29,45 +30,45 @@ public class VentanaPrincipal extends JFrame {
     private static final long serialVersionUID = 1L;
 
 
-    private JPanel pnPrincipal;
-    private JPanel pnObjetos;
-    private JPanel pnLocalizacion;
-    private JLabel lbListaObjetos;
+    private JPanel pnPrincipal; /**< Un objeto JPanel. El panel principal de la Interfaz Gráfica de Usuario (IGU). */
+    private JPanel pnObjetos; /**< Un objeto JPanel. El panel en el que se ubicará la lista de objetos. */
+    private JPanel pnLocalizacion; /**< Un objeto JPanel. El panel en el que se ubicará la localización de los objetos. */
+    private JLabel lbListaObjetos; /**< Una etiqueta JLabel. Etiqueta de título correspondiente al a lista de objetos. */
 
-    private JScrollPane scrollPaneListaObjetos;
-    private JList<Objeto_Casa> listObjetos;
-    private DefaultListModel<Objeto_Casa> modelObjetos;
-    private DefaultListModel<Objeto_Casa> modelObjetosGuardados;
+    private JScrollPane scrollPaneListaObjetos; /**< Un objeto JScrollPane. El panel de scroll que permitirá almacenar toda la lista. */
+    private JList<Objeto_Casa> listObjetos; /**< Una lista JList. Lista que se mostrará en el panel de lista de objetos. */
+    private DefaultListModel<Objeto_Casa> modelObjetos; /**< Un modelo DefaultListModel. El modelo se vinculará con la lista JList de objetos. */
+    private DefaultListModel<Objeto_Casa> modelObjetosGuardados; /**< Un modelo DefaultListModel. El modelo será usado para la lista de objetos guardados. */
 
-    private JPanel pnBotones;
-    private JPanel pnBtInferior;
-    private JButton btRecuperar;
-    private JButton btGuardar;
-    private JPanel pnBtSuperior;
-    private JButton btCrear;
-    private JButton btActualizar;
-    private JButton btEliminar;
-    private JLabel lbInformacionObjetos;
-    private JPanel pnCampos;
-    private JPanel pnPosiciones;
-    private JLabel lbId;
-    private JTextField txId;
-    private JLabel lbMarca;
-    private JTextField txMarca;
-    private JLabel lbModelo;
-    private JTextField txModelo;
-    private JLabel lbValor;
-    private JTextField txValor;
-    private JCheckBox chckbxEditar;
-    private JSeparator separator;
-    private JLabel lbPosicionX;
-    private JTextField txPosicionX;
-    private JLabel lbPosicionY;
-    private JTextField txPosicionY;
+    private JPanel pnBotones; /**< Un objeto JPanel. El panel en el que se ubicarán los botones de acción sobre el objeto. */
+    private JPanel pnBtInferior; /**< Un objeto JPanel. El panel inferior en el que se ubicará el panel de botones. */
+    private JButton btRecuperar; /**< Un objeto JButton. El botón de recuperar para acceder a la lista de objetos guardados. */
+    private JButton btGuardar; /**< Un objeto JButton. El botón para guardar en una lista de objetos almacenados. */
+    private JPanel pnBtSuperior; /**< Un objeto JPanel. El panel superior integrado en el panel de botones. */
+    private JButton btCrear; /**< Un objeto JButton. El botón para crear un objeto y almacenarlo en otra lista de objetos. */
+    private JButton btActualizar; /**< Un objeto JButton. El botón para actualizar los datos del objeto seleccionado así como su posición. */
+    private JButton btEliminar; /**< Un objeto JButton. El botón para eliminar un objeto de la lista actual de objetos. */
+    private JLabel lbInformacionObjetos; /**< Una etiqueta JLabel. Etiqueta de título correspondiente a la información de los objetos. */
+    private JPanel pnCampos; /**< Un objeto JPanel. El panel dedicado a rellenar o mostrar los campos para un objeto determinado. */
+    private JPanel pnPosiciones; /**< Un objeto JPanel. El panel para ubicar los elementos de mostrar la posición del objeto. */
+    private JLabel lbId; /**< Una etiqueta JLabel. Etiqueta de título correspondiente al ID. */
+    private JTextField txId; /**< Un campo de texto JTextField. Campo de texto para el ID del objeto. */
+    private JLabel lbMarca; /**< Una etiqueta JLabel. Etiqueta de título correspondiente a la marca. */
+    private JTextField txMarca; /**< Un campo de texto JTextField. Campo de texto para la marca del objeto. */
+    private JLabel lbModelo; /**< Una etiqueta JLabel. Etiqueta de título correspondiente al modelo. */
+    private JTextField txModelo; /**< Un campo de texto JTextField. Campo de texto para el modelo del objeto. */
+    private JLabel lbValor; /**< Una etiqueta JLabel. Etiqueta de título correspondiente al valor. */
+    private JTextField txValor; /**< Un campo de texto JTextField. Campo de texto para el valor del objeto. */
+    private JCheckBox chckbxEditar; /**< Un objeto JCheckBox. Checkbox para habilitar los campos de texto y permitir que sean editables. */
+    private JSeparator separator; /**< Un objeto JSeparator. Separador para reestructurar correctamente los elementos visuales en el layout. */
+    private JLabel lbPosicionX; /**< Una etiqueta JLabel. Etiqueta de título correspondiente a la posición X. */
+    private JTextField txPosicionX; /**< Un campo de texto JTextField. Campo de texto para la posición X del objeto. */
+    private JLabel lbPosicionY; /**< Una etiqueta JLabel. Etiqueta de título correspondiente a la posición Y. */
+    private JTextField txPosicionY; /**< Un campo de texto JTextField. Campo de texto para la posición Y del objeto. */
 
-    Casa casa;
+    Casa casa; /**< Un objeto Casa. Objeto Casa empleado para instanciar la lógica del proyecto y realizar las operaciones correspondientes. */
 
-    Objeto_Casa ultimaSeleccion = null;
+    Objeto_Casa ultimaSeleccion = null; /**< Un objeto Objeto_Casa. Objeto que representa el último elemento de la casa seleccionado en la interfaz. */
 
     /**
      * Launch the application.
