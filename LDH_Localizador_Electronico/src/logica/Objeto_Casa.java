@@ -1,10 +1,7 @@
 package logica;
 
+/*! Clase complementaria de la lógica que instancia un objeto para la casa */
 public class Objeto_Casa{
-
-
-    //VARIABLES DE APARATOS ELECTRONICOS//
-    //COMPROBAR QUE EL IDENTIFICADOR SEA UNICO: VA A SER,POR EJEMPLO, "SMARTPHONE DE JESUS"
 
     private final String ID;
     private String marca;
