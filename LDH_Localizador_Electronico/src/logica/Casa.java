@@ -6,11 +6,8 @@ import java.util.List;
 /*! Clase principal de la lógica que instancia la Casa de la aplicación */
 public class Casa {
 
-    //Dimensiones del piso
     public int ancho; /**< Un entero. Las dimensiones del ancho de la casa. */
     public int largo; /**< Un entero. Las dimensiones del largo de la casa. */
-
-    //PONER TEXTURA PARA CASA: PLANO 2D
 
     private final ArrayList<Objeto_Casa> objetos; /**< Una lista de objetos de la casa. Una lista con los objetos contenidos en el hogar. */
 
@@ -79,44 +76,4 @@ public class Casa {
         }
         return false;
     }
-
-    public boolean eliminar_objetos(List<Objeto_Casa> listaObjetosAEliminar){
-        for(Objeto_Casa objetoAEliminar : listaObjetosAEliminar){
-            for(Objeto_Casa objetoABuscar : objetos){
-                if(objetoABuscar.getID().equals(objetoAEliminar.getID())){
-                    objetos.remove(objetoABuscar);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean actualizar_objeto(Objeto_Casa nuevo_valor_objeto){
-        for (Objeto_Casa objeto : objetos) {
-            if (objeto.getID().equals(nuevo_valor_objeto.getID())) {
-                objeto.setObjeto(nuevo_valor_objeto);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public String[] mostrar_objeto(int i){
-        for (Objeto_Casa objeto : objetos){
-            objeto.calculate_next_pos(ancho, largo);
-        }
-        return objetos.get(i).getInfo();
-    }
-
-
-    /*
-    public String mostrar_objetos(){
-        StringBuilder info = new StringBuilder();
-        for (Objeto_Casa objeto : objetos) {
-            objeto.calculate_next_pos(ancho, largo);
-            info.append(objeto.getInfo());
-        }
-        return info.toString();
-    } */
 }
