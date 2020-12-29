@@ -71,7 +71,7 @@ public class VentanaPrincipal extends JFrame {
     Objeto_Casa ultimaSeleccion = null; /**< Un objeto Objeto_Casa. Objeto que representa el último elemento de la casa seleccionado en la interfaz. */
 
     /**
-     * Launch the application.
+     * Método que instancia la propia clase VentanaPrincipal y visibiliza la interfaz.
      */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -87,7 +87,13 @@ public class VentanaPrincipal extends JFrame {
     }
 
     /**
-     * Create the frame.
+     * Constructor de la clase de la ventana.
+     *
+     * En este constructor se inicializa el objeto VentanaPrincipal, así como los elementos de la lógica necesarios para
+     * simular la aplicación del localizador electrónico en el hogar. Los objetos involucrados serían el atributo casa
+     * así como modelObjetosGuardados. Posteriormente, se establece el título de la ventana así como otras propiedades básicas
+     * de la ventana. Se añadirán los correspondientes paneles, así como su layout, que contendrán el resto de elementos
+     * de la IGU.
      */
     public VentanaPrincipal() {
         casa = new Casa(1000, 500);
@@ -107,6 +113,12 @@ public class VentanaPrincipal extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Getter del panel de objetos.
+     *
+     * Este método devuelve el valor que tiene el objeto del panel de objetos para el atributo 'pnObjetos'
+     * @return El panel de objetos.
+     */
     private JPanel getPnObjetos() {
         if (pnObjetos == null) {
             pnObjetos = new JPanel();
@@ -138,6 +150,12 @@ public class VentanaPrincipal extends JFrame {
         return pnObjetos;
     }
 
+    /**
+     * Getter del panel de localización.
+     *
+     * Este método devuelve el valor que tiene el objeto del panel de localización para el atributo 'pnLocalizacion'
+     * @return El panel de localización.
+     */
     private JPanel getPnLocalizacion() {
         if (pnLocalizacion == null) {
             pnLocalizacion = new JPanel();
@@ -149,6 +167,12 @@ public class VentanaPrincipal extends JFrame {
         return pnLocalizacion;
     }
 
+    /**
+     * Getter de la etiqueta de la lista de objetos.
+     *
+     * Este método devuelve el valor que tiene el objeto de la etiqueta de la lista de objetos para el atributo 'lbListaObjetos'
+     * @return La etiqueta de lista de objetos.
+     */
     private JLabel getLbListaObjetos() {
         if (lbListaObjetos == null) {
             lbListaObjetos = new JLabel("Lista de objetos:");
@@ -158,6 +182,12 @@ public class VentanaPrincipal extends JFrame {
         return lbListaObjetos;
     }
 
+    /**
+     * Getter del panel de scroll para la lista de objetos.
+     *
+     * Este método devuelve el valor que tiene el objeto del panel de scroll de lista de objetos para el atributo 'scrollPaneListaObjetos'
+     * @return El panel de scroll de lista de objetos.
+     */
     private JScrollPane getScrollPaneListaObjetos() {
         if (scrollPaneListaObjetos == null) {
             scrollPaneListaObjetos = new JScrollPane();
@@ -168,6 +198,15 @@ public class VentanaPrincipal extends JFrame {
         return scrollPaneListaObjetos;
     }
 
+    /**
+     * Getter de la lista de objetos.
+     *
+     * Este método devuelve el valor que tiene el objeto de la lista de objetos para el atributo 'listObjetos'.
+     * Cabe destacar que la lista se actualizará siempre y cuando el valor seleccionado se actualice, y esto
+     * afecta al uso del objeto 'modelObjetos', que se modificará a través del método actualizarValores().
+     *
+     * @return La lista de objetos de la casa.
+     */
     private JList<Objeto_Casa> getListObjetos() {
         if (listObjetos == null) {
             modelObjetos = new DefaultListModel<Objeto_Casa>();
@@ -184,7 +223,12 @@ public class VentanaPrincipal extends JFrame {
         return listObjetos;
     }
 
-
+    /**
+     * Getter del panel botones.
+     *
+     * Este método devuelve el valor que tiene el objeto del panel de botones para el atributo 'pnBotones'.
+     * @return El panel de botones.
+     */
     private JPanel getPnBotones() {
         if (pnBotones == null) {
             pnBotones = new JPanel();
@@ -195,6 +239,12 @@ public class VentanaPrincipal extends JFrame {
         return pnBotones;
     }
 
+    /**
+     * Getter del panel inferior de botones.
+     *
+     * Este método devuelve el valor que tiene el objeto del panel inferior de botones para el atributo 'pnBtInferior'.
+     * @return El panel inferior de botones.
+     */
     private JPanel getPnBtInferior() {
         if (pnBtInferior == null) {
             pnBtInferior = new JPanel();
@@ -204,6 +254,15 @@ public class VentanaPrincipal extends JFrame {
         return pnBtInferior;
     }
 
+    /**
+     * Getter del botón de recuperar.
+     *
+     * Este método devuelve el valor que tiene el objeto del botón recuperar para el atributo 'btRecuperar'.
+     * Como actionPerformed el botón accederá a una lista adicional de objetos previamente guardados para poder recuperarlos
+     * e incorporarlos nuevamente a la lista actual de objetos sobre los que se está haciendo seguimiento (en caso de que
+     * no esté ya en dicha lista).
+     * @return El botón de recuperar.
+     */
     private JButton getBtRecuperar() {
         if (btRecuperar == null) {
             btRecuperar = new JButton("Recuperar");
@@ -212,7 +271,7 @@ public class VentanaPrincipal extends JFrame {
                     Object[] opciones = modelObjetosGuardados.toArray();
 
                     Object objetoSeleccionado = JOptionPane.showInputDialog(getReferenciaThis(),
-                            "Escoje un objeto a recuperar",
+                            "Escoge un objeto a recuperar",
                             "Recuperar objeto",
                             JOptionPane.QUESTION_MESSAGE,
                             null,
@@ -233,6 +292,13 @@ public class VentanaPrincipal extends JFrame {
         return btRecuperar;
     }
 
+    /**
+     * Método que permite recuperar un objeto de la lista de objetos.
+     *
+     * En este método se incorpora el elemento que se pasa como parámetro a la lista actual de objetos de tracking.
+     * Primeramente se comprueba si el objeto ya estaba presente en la lista o no.
+     * @param objetoARecuperar El objeto que se desea recuperar.
+     */
     private void recuperarObjeto(Objeto_Casa objetoARecuperar) {
         if (!doesItContain(objetoARecuperar, modelObjetos)) {
             modelObjetos.addElement(objetoARecuperar);
@@ -243,6 +309,14 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Getter del botón de guardar.
+     *
+     * Este método devuelve el valor que tiene el objeto del botón guardar para el atributo 'btGuardar'.
+     * Como actionPerformed del botón se tomará el objeto a almacenar y se comprobará que la lista de objetos guardados
+     * no contenga dicho elemento. Una vez evaluado el guardado se muestra un mensaje informativo sobre la operación realizada.
+     * @return El botón de guardar.
+     */
     private JButton getBtGuardar() {
         if (btGuardar == null) {
             btGuardar = new JButton("Guardar");
@@ -272,6 +346,12 @@ public class VentanaPrincipal extends JFrame {
         return btGuardar;
     }
 
+    /**
+     * Getter del panel superior de botones.
+     *
+     * Este método devuelve el valor que tiene el objeto del panel superior de botones para el atributo 'pnBtSuperior'.
+     * @return El panel superior de botones
+     */
     private JPanel getPnBtSuperior() {
         if (pnBtSuperior == null) {
             pnBtSuperior = new JPanel();
@@ -282,6 +362,14 @@ public class VentanaPrincipal extends JFrame {
         return pnBtSuperior;
     }
 
+    /**
+     * Getter del botón de crear.
+     *
+     * Este método devuelve el valor que tiene el objeto del botón crear para el atributo 'btCrear'.
+     * Como actionPerformed del botón se tomará el objeto que se desea crear y se comprobará que no exista en la lista
+     * de objetos de tracking (es decir, que no se repita el campo ID).
+     * @return El botón de crear.
+     */
     private JButton getBtCrear() {
         if (btCrear == null) {
             btCrear = new JButton("Crear");
@@ -311,6 +399,16 @@ public class VentanaPrincipal extends JFrame {
         return btCrear;
     }
 
+    /**
+     * Método que permite comprobar un elemento en el modelo de la lista de objetos que se pase como parámetro.
+     *
+     * En este método se comprueba dado un objeto para comprobarse, y dado un modelo de lista en el que realizar
+     * dicha búsqueda, aquel objeto que coincida en el atributo ID de tal forma que se informe del conflicto en
+     * caso de ya existir, o 'false' si no existen dos objetos con el mismo ID.
+     * @param objetoAComprobar El objeto que se desea buscar.
+     * @param modeloDeBusqueda El modelo de la lista en el que se desea buscar.
+     * @return Un booleano informando de la presencia del elemento a buscar en la lista deseada.
+     */
     private boolean doesItContain(Objeto_Casa objetoAComprobar, DefaultListModel<Objeto_Casa> modeloDeBusqueda) {
         for (int i = 0; i < modeloDeBusqueda.size(); i++) {
             if (modeloDeBusqueda.get(i).getID().equals(objetoAComprobar.getID())) {
@@ -320,6 +418,16 @@ public class VentanaPrincipal extends JFrame {
         return false;
     }
 
+    /**
+     * Getter del botón de actualizar.
+     *
+     * Este método devuelve el valor que tiene el objeto del botón actualizar para el atributo 'btActualizar'.
+     * Como actionPerformed se comprueba que haya un elemento seleccionado en la lista para poder ser actualizado y,
+     * posteriormente, se dispone a refrescar los valores que se deban actualizar en la IGU, de tal forma que pueda
+     * comprobarse el desplazamiento simulado del objeto en los límites establecidos dentro del hogar, y se pueda
+     * consultar también toda la información restante relativa al objeto en cuestión.
+     * @return El botón de actualizar.
+     */
     private JButton getBtActualizar() {
         if (btActualizar == null) {
             btActualizar = new JButton("Actualizar");
@@ -339,6 +447,14 @@ public class VentanaPrincipal extends JFrame {
         return btActualizar;
     }
 
+    /**
+     * Método que permite refrescar la información mostrada para el objeto deseado.
+     *
+     * En este método se utiliza el objeto que sea pasado como parámetro para mostrar en los campos correspondientes
+     * el conjunto de atributos que conforman la clase de origen, de tal modo que el usuario disponga de toda la
+     * información relativa al objeto, y además, se calcule la nueva posición del objeto.
+     * @param objetoActualizable El objeto sobre el que se desea mostrar y actualizar sus valores.
+     */
     private void actualizarValores(Objeto_Casa objetoActualizable) {
         String idActualizado = objetoActualizable.getInfo()[0];
         String marcaActualizada = objetoActualizable.getInfo()[1];
@@ -359,6 +475,15 @@ public class VentanaPrincipal extends JFrame {
         getTxPosicionY().setText(valorPosYActualizado);
     }
 
+    /**
+     * Getter del botón de eliminar.
+     *
+     * Este método devuelve el valor que tiene el objeto del botón eliminar para el atributo 'btEliminar'.
+     * Como actionPerformed se procede a eliminar el objeto seleccionado tanto de la lista de la interfaz gráfica
+     * como de la lista perteneciente a la lógica instanciada de la clase 'Casa', de tal forma que no haya registro
+     * de dicho objeto. Además, se vacían los campos para continuar usando la aplicación.
+     * @return El botón de eliminar.
+     */
     private JButton getBtEliminar() {
         if (btEliminar == null) {
             btEliminar = new JButton("Eliminar");
@@ -379,6 +504,12 @@ public class VentanaPrincipal extends JFrame {
         return btEliminar;
     }
 
+    /**
+     * Método para vaciar los campos.
+     *
+     * En este método se vacían todos los campos pertenecientes en el panel de información del objeto.
+     * Para ello se 'settean' los valores como una cadena vacía.
+     */
     private void vaciarCampos() {
         getTxId().setText("");
         getTxMarca().setText("");
@@ -388,6 +519,12 @@ public class VentanaPrincipal extends JFrame {
         getTxPosicionY().setText("");
     }
 
+    /**
+     * Getter de la etiqueta de la información de los objetos.
+     *
+     * Este método devuelve el valor que tiene el objeto de la etiqueta de información de objetos para el atributo 'lbInformacionObjetos'.
+     * @return La etiqueta con el texto sobre la información de los objetos.
+     */
     private JLabel getLbInformacionObjetos() {
         if (lbInformacionObjetos == null) {
             lbInformacionObjetos = new JLabel("Informacion del objeto:");
@@ -397,6 +534,12 @@ public class VentanaPrincipal extends JFrame {
         return lbInformacionObjetos;
     }
 
+    /**
+     * Getter del panel de campos.
+     *
+     * Este método devuelve el valor que tiene el objeto del panel de campos para el atributo 'pnCampos'.
+     * @return El panel de campos.
+     */
     private JPanel getPnCampos() {
         if (pnCampos == null) {
             pnCampos = new JPanel();
@@ -470,6 +613,12 @@ public class VentanaPrincipal extends JFrame {
         return pnCampos;
     }
 
+    /**
+     * Getter del panel de posiciones.
+     *
+     * Este método devuelve el valor que tiene el objeto del panel de posiciones para el atributo 'pnPosiciones'.
+     * @return El panel de posiciones.
+     */
     private JPanel getPnPosiciones() {
         if (pnPosiciones == null) {
             pnPosiciones = new JPanel();
@@ -504,6 +653,12 @@ public class VentanaPrincipal extends JFrame {
         return pnPosiciones;
     }
 
+    /**
+     * Getter de la etiqueta del título para el ID.
+     *
+     * Este método devuelve el valor que tiene el objeto de la etiqueta del título de ID para el atributo 'lbId'.
+     * @return La etiqueta con el texto sobre el título de ID.
+     */
     private JLabel getLbId() {
         if (lbId == null) {
             lbId = new JLabel("ID: ");
@@ -513,6 +668,12 @@ public class VentanaPrincipal extends JFrame {
         return lbId;
     }
 
+    /**
+     * Getter del campo de texto para el ID.
+     *
+     * Este método devuelve el valor que tiene el objeto del campo de texto de ID para el atributo 'txId'.
+     * @return El campo de texto para el ID.
+     */
     private JTextField getTxId() {
         if (txId == null) {
             txId = new JTextField();
@@ -521,6 +682,12 @@ public class VentanaPrincipal extends JFrame {
         return txId;
     }
 
+    /**
+     * Getter de la etiqueta del título para la marca.
+     *
+     * Este método devuelve el valor que tiene el objeto de la etiqueta del título de marca para el atributo 'lbMarca'.
+     * @return La etiqueta con el texto sobre el título de ID.
+     */
     private JLabel getLbMarca() {
         if (lbMarca == null) {
             lbMarca = new JLabel("Marca: ");
@@ -530,6 +697,12 @@ public class VentanaPrincipal extends JFrame {
         return lbMarca;
     }
 
+    /**
+     * Getter del campo de texto para la marca.
+     *
+     * Este método devuelve el valor que tiene el objeto del campo de texto de la marca para el atributo 'txMarca'.
+     * @return El campo de texto para la marca.
+     */
     private JTextField getTxMarca() {
         if (txMarca == null) {
             txMarca = new JTextField();
@@ -539,6 +712,12 @@ public class VentanaPrincipal extends JFrame {
         return txMarca;
     }
 
+    /**
+     * Getter de la etiqueta del título para el modelo.
+     *
+     * Este método devuelve el valor que tiene el objeto de la etiqueta del título del modelo para el atributo 'lbModelo'.
+     * @return La etiqueta con el texto para el título del modelo.
+     */
     private JLabel getLbModelo() {
         if (lbModelo == null) {
             lbModelo = new JLabel("Modelo:");
@@ -548,6 +727,12 @@ public class VentanaPrincipal extends JFrame {
         return lbModelo;
     }
 
+    /**
+     * Getter del campo de texto para el modelo.
+     *
+     * Este método devuelve el valor que tiene el objeto del campo de texto del modelo para el atributo 'txModelo'.
+     * @return El campo de texto para el modelo.
+     */
     private JTextField getTxModelo() {
         if (txModelo == null) {
             txModelo = new JTextField();
@@ -556,6 +741,12 @@ public class VentanaPrincipal extends JFrame {
         return txModelo;
     }
 
+    /**
+     * Getter de la etiqueta del título para el valor.
+     *
+     * Este método devuelve el valor que tiene el objeto de la etiqueta del título de valor para el atributo 'lbValor'.
+     * @return La etiqueta con el texto para el título del valor.
+     */
     private JLabel getLbValor() {
         if (lbValor == null) {
             lbValor = new JLabel("Valor: ");
@@ -565,6 +756,12 @@ public class VentanaPrincipal extends JFrame {
         return lbValor;
     }
 
+    /**
+     * Getter del campo de texto para el valor.
+     *
+     * Este método devuelve el valor que tiene el objeto del campo de texto de valor para el atributo 'txValor'.
+     * @return El campo de texto para el valor.
+     */
     private JTextField getTxValor() {
         if (txValor == null) {
             txValor = new JTextField();
@@ -573,6 +770,12 @@ public class VentanaPrincipal extends JFrame {
         return txValor;
     }
 
+    /**
+     * Getter del checkbox de editar.
+     *
+     * Este método devuelve el valor que tiene el objeto del checkbox de editar para el atributo 'chckbxEditar'.
+     * @return El checkbox de editar.
+     */
     private JCheckBox getChckbxEditar() {
         if (chckbxEditar == null) {
             chckbxEditar = new JCheckBox("Editar");
@@ -591,6 +794,12 @@ public class VentanaPrincipal extends JFrame {
         return chckbxEditar;
     }
 
+    /**
+     * Getter del separador.
+     *
+     * Este método devuelve el valor que tiene el objeto del separador para el atributo 'separator'.
+     * @return El separador.
+     */
     private JSeparator getSeparator() {
         if (separator == null) {
             separator = new JSeparator();
@@ -599,6 +808,12 @@ public class VentanaPrincipal extends JFrame {
         return separator;
     }
 
+    /**
+     * Getter de la etiqueta del título para la posición X.
+     *
+     * Este método devuelve el valor que tiene el objeto de la etiqueta del título de la posición X para el atributo 'lbPosicionX'.
+     * @return La etiqueta con el texto para el título de la posición X.
+     */
     private JLabel getLbPosicionX() {
         if (lbPosicionX == null) {
             lbPosicionX = new JLabel("Posicion X: ");
@@ -608,6 +823,12 @@ public class VentanaPrincipal extends JFrame {
         return lbPosicionX;
     }
 
+    /**
+     * Getter del campo de texto para la posición X.
+     *
+     * Este método devuelve el valor que tiene el objeto del campo de texto de la posición X para el atributo 'txPosicionX'.
+     * @return El campo de texto para la posición X.
+     */
     private JTextField getTxPosicionX() {
         if (txPosicionX == null) {
             txPosicionX = new JTextField();
@@ -618,6 +839,12 @@ public class VentanaPrincipal extends JFrame {
         return txPosicionX;
     }
 
+    /**
+     * Getter de la etiqueta del título para la posición Y.
+     *
+     * Este método devuelve el valor que tiene el objeto de la etiqueta del título de la posición Y para el atributo 'lbPosicionY'.
+     * @return La etiqueta con el texto para el título de la posición Y.
+     */
     private JLabel getLbPosicionY() {
         if (lbPosicionY == null) {
             lbPosicionY = new JLabel("Posicion Y: ");
@@ -627,6 +854,12 @@ public class VentanaPrincipal extends JFrame {
         return lbPosicionY;
     }
 
+    /**
+     * Getter del campo de texto para la posición Y.
+     *
+     * Este método devuelve el valor que tiene el objeto del campo de texto de la posición Y para el atributo 'txPosicionY'.
+     * @return El campo de texto para la posición Y.
+     */
     private JTextField getTxPosicionY() {
         if (txPosicionY == null) {
             txPosicionY = new JTextField();
@@ -637,6 +870,12 @@ public class VentanaPrincipal extends JFrame {
         return txPosicionY;
     }
 
+    /**
+     * Getter de la referencia a la propia clase.
+     *
+     * Este método devuelve el valor que tiene el objeto de la instancia actual sobre la propia clase.
+     * @return La referencia a la propia clase (this).
+     */
     private VentanaPrincipal getReferenciaThis() {
         return this;
     }
